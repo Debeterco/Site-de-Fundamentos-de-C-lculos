@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Calculando Fundamentos</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+    <h1>Cálculos Fundamentais</h1>
+    <hr>
+<!-- Operações Básicas -->
+<h2>Operações Básicas</h2>
+
+    <p>Primeiro Número</p>
+    <input id="a1" type="number" placeholder="Valor 1" />
+    <p>Segundo Número</p>
+    <input id="b1" type="number" placeholder="Valor 2" />
+<br/>
+<div class="grid-buttons">
+    <button onclick="operar('soma')">Somar</button>
+    <button onclick="operar('sub')">Subtrair</button>
+    <button onclick="operar('mult')">Multiplicar</button>
+    <button onclick="operar('div')">Dividir</button>
+</div>
+
+<p id="resultado-basico" class="resultado"></p>
+
+<hr />
+
+<!-- Bhaskara -->
+<h2>Bhaskara</h2>
+    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRt2MhVB6pk4iyink_bMu7y9A5ieoqKQEJCpsOH6sNRcW3oWfh0PdyTDiZEfPnmed02COZDMII-S_aMJ9L-sOajjuUtJwCyodmAXd3iQeKrCA" alt="formula-Bhaskara">
+
+    <p>Letra A:</p>
+    <input id="a2" type="number" placeholder="A" />
+    <p>Letra B:</p>
+    <input id="b2" type="number" placeholder="B" />
+    <p>Letra C:</p>
+    <input id="c2" type="number" placeholder="C" />
+<br/>
+    <button onclick="calcularBhaskara()">Calcular</button>
+    <p id="resultado-bhaskara" class="resultado"></p>
+
+<hr />
+
+<!-- Conversor Romano -->
+<h2>Conversão Romana</h2>
+
+    <h3>Conversor de Número</h3><br/>
+    <input id="numeros" type="number" placeholder="Valor do Número" /><br/>
+    <button onclick="conversorNum()">Converter Número</button>
+    <p id="resultado-num" class="resultado"></p><br>
+
+    <h3>Conversor de Letra</h3><br/>
+    <input id="letras" type="text" placeholder="Valor da Letra" /><br/>
+    <button onclick="conversorStr()">Converter Letra</button>
+    <p id="resultado-str" class="resultado"></p>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
