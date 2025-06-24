@@ -1,0 +1,1 @@
+Realizado em 24 de junho de 2025, este trabalho constitui uma avaliação da unidade curricular Fundamentos de Desenvolvimento de Software, do curso de Automação e Conectividade, turma MA-77, do CentroWEG. Tem como objetivo avaliar o desempenho na programação em HTML.
