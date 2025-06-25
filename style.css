@@ -77,18 +77,36 @@ input:focus {
     box-shadow: 0 0 14px #ffbf6eaa;
 }
 
-.grid-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+.calculadora {
     width: 100%;
     max-width: 420px;
-    margin: 30px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.grid-buttons button {
+#display {
+    font-size: 1.6rem;
+    padding: 16px;
+    border-radius: 20px;
+    border: 2px solid #ddd;
+    text-align: right;
     width: 100%;
-    padding: 16px 0;
+    box-shadow: inset 0 0 6px #ffbf6eaa;
+    user-select: none;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.calc-buttons button {
+    padding: 18px 0;
     background-color: #ffbf6e;
     border: none;
     border-radius: 20px;
@@ -101,14 +119,15 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
 }
 
-.grid-buttons button:hover {
+.calc-buttons button:hover {
     background-color: #ffa633;
     transform: translateY(-3px);
 }
 
-button:not(.grid-buttons button) {
+button:not(.calc-buttons button) {
     margin: 30px 0 36px 0;
     padding: 18px 40px;
     background-color: #ffbf6e;
@@ -125,7 +144,7 @@ button:not(.grid-buttons button) {
     justify-content: center;
 }
 
-button:not(.grid-buttons button):hover {
+button:not(.calc-buttons button):hover {
     background-color: #ffa633;
     transform: translateY(-3px);
 }
@@ -157,4 +176,8 @@ img {
     max-width: 100%;
     height: auto;
     margin: 20px 0 32px 0;
+}
+
+button i {
+    margin-right: 8px;
 }
