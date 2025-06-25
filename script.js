@@ -1,13 +1,20 @@
-// Operações Básicas
-function operar(operacao) {
-    const a = parseFloat(document.getElementById('a1').value);
-    const b = parseFloat(document.getElementById('b1').value);
+// Variáveis temporárias para operação calculadora
+let tempA = null;
+let tempB = null;
+let tempOperacao = null;
+
+// Função para reutilizar seu operar adaptado para os valores temporários
+function operarInterno() {
     const resultadoEl = document.getElementById('resultado-basico');
 
-    if (isNaN(a) || isNaN(b)) {
-        resultadoEl.textContent = 'Por favor, preencha os dois valores.';
+    if (tempA === null || tempB === null || tempOperacao === null) {
+        resultadoEl.textContent = 'Erro na operação.';
         return;
     }
+
+    const a = tempA;
+    const b = tempB;
+    const operacao = tempOperacao;
 
     let resultado;
     let texto = '';
@@ -36,7 +43,79 @@ function operar(operacao) {
     }
 
     resultadoEl.textContent = texto;
+    // Reset temporário
+    tempA = null;
+    tempB = null;
+    tempOperacao = null;
 }
+
+// Funções para controlar o display da calculadora
+
+function appendNum(num) {
+    const display = document.getElementById('display');
+    if (display.value === "0") display.value = "";
+    display.value += num;
+}
+
+function appendOp(op) {
+    const display = document.getElementById('display');
+    const lastChar = display.value.slice(-1);
+
+    // Evita dois operadores seguidos
+    if (['+', '-', '*', '/'].includes(lastChar)) {
+        display.value = display.value.slice(0, -1) + op;
+    } else if (display.value.length > 0) {
+        display.value += op;
+    }
+}
+
+function clearDisplay() {
+    document.getElementById('display').value = '';
+    document.getElementById('resultado-basico').textContent = '';
+}
+
+// Função para calcular: interpreta display, separa operandos e operação e chama operarInterno
+
+function calculate() {
+    const display = document.getElementById('display');
+    const expr = display.value;
+
+    // Regex para separar números e operação (+ - * /)
+    const match = expr.match(/^(-?\d*\.?\d+)([\+\-\*\/])(-?\d*\.?\d+)$/);
+
+    if (!match) {
+        document.getElementById('resultado-basico').textContent = 'Expressão inválida. Use formato: número operador número';
+        return;
+    }
+
+    let a = parseFloat(match[1]);
+    let op = match[2];
+    let b = parseFloat(match[3]);
+
+    if (isNaN(a) || isNaN(b)) {
+        document.getElementById('resultado-basico').textContent = 'Por favor, insira números válidos.';
+        return;
+    }
+
+    // Ajusta operação para usar nomes da sua função operar
+    switch(op) {
+        case '+': op = 'soma'; break;
+        case '-': op = 'sub'; break;
+        case '*': op = 'mult'; break;
+        case '/': op = 'div'; break;
+        default:
+            document.getElementById('resultado-basico').textContent = 'Operação inválida.';
+            return;
+    }
+
+    tempA = a;
+    tempB = b;
+    tempOperacao = op;
+
+    operarInterno();
+}
+
+// --- SEGUEM AS SUAS FUNÇÕES ORIGINAIS ---
 
 // Bhaskara
 function calcularBhaskara() {
