@@ -4,33 +4,46 @@
     <meta charset="UTF-8" />
     <title>Calculando Fundamentos</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 <div class="container">
     <h1>Cálculos Fundamentais</h1>
     <hr>
-<!-- Operações Básicas -->
-<h2>Operações Básicas</h2>
 
-    <p>Primeiro Número</p>
-    <input id="a1" type="number" placeholder="Valor 1" />
-    <p>Segundo Número</p>
-    <input id="b1" type="number" placeholder="Valor 2" />
-<br/>
-<div class="grid-buttons">
-    <button onclick="operar('soma')">Somar</button>
-    <button onclick="operar('sub')">Subtrair</button>
-    <button onclick="operar('mult')">Multiplicar</button>
-    <button onclick="operar('div')">Dividir</button>
-</div>
+    <!-- Calculadora -->
+    <h2>Calculadora</h2>
+    <div class="calculadora">
+      <input type="text" id="display" placeholder="0" readonly />
+      <div class="calc-buttons">
+        <button onclick="appendNum('7')">7</button>
+        <button onclick="appendNum('8')">8</button>
+        <button onclick="appendNum('9')">9</button>
+        <button onclick="appendOp('+')"><i class="fa-solid fa-plus"></i></button>
 
-<p id="resultado-basico" class="resultado"></p>
+        <button onclick="appendNum('4')">4</button>
+        <button onclick="appendNum('5')">5</button>
+        <button onclick="appendNum('6')">6</button>
+        <button onclick="appendOp('-')"><i class="fa-solid fa-minus"></i></button>
 
-<hr />
+        <button onclick="appendNum('1')">1</button>
+        <button onclick="appendNum('2')">2</button>
+        <button onclick="appendNum('3')">3</button>
+        <button onclick="appendOp('*')"><i class="fa-solid fa-xmark"></i></button>
 
-<!-- Bhaskara -->
-<h2>Bhaskara</h2>
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRt2MhVB6pk4iyink_bMu7y9A5ieoqKQEJCpsOH6sNRcW3oWfh0PdyTDiZEfPnmed02COZDMII-S_aMJ9L-sOajjuUtJwCyodmAXd3iQeKrCA" alt="formula-Bhaskara">
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendNum('0')">0</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendOp('/')"><i class="fa-solid fa-divide"></i></button>
+      </div>
+      <p id="resultado-basico" class="resultado"></p>
+    </div>
+
+    <hr />
+
+    <!-- Bhaskara -->
+    <h2>Bhaskara</h2>
+    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRt2MhVB6pk4iyink_bMu7y9A5ieoqKQEJCpsOH6sNRcW3oWfh0PdyTDiZEfPnmed02COZDMII-S_aMJ9L-sOajjuUtJwCyodmAXd3iQeKrCA" alt="formula-Bhaskara" />
 
     <p>Letra A:</p>
     <input id="a2" type="number" placeholder="A" />
@@ -38,14 +51,14 @@
     <input id="b2" type="number" placeholder="B" />
     <p>Letra C:</p>
     <input id="c2" type="number" placeholder="C" />
-<br/>
+    <br/>
     <button onclick="calcularBhaskara()">Calcular</button>
     <p id="resultado-bhaskara" class="resultado"></p>
 
-<hr />
+    <hr />
 
-<!-- Conversor Romano -->
-<h2>Conversão Romana</h2>
+    <!-- Conversor Romano -->
+    <h2>Conversão Romana</h2>
 
     <h3>Conversor de Número</h3><br/>
     <input id="numeros" type="number" placeholder="Valor do Número" /><br/>
@@ -57,6 +70,7 @@
     <button onclick="conversorStr()">Converter Letra</button>
     <p id="resultado-str" class="resultado"></p>
 </div>
-    <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>
