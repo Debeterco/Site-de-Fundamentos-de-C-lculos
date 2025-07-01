@@ -1,123 +1,101 @@
-// Variáveis temporárias para operação calculadora
-let tempA = null;
-let tempB = null;
-let tempOperacao = null;
+// --- Seletores reutilizáveis ---
+const display = document.getElementById('display');
+const resultadoBasico = document.getElementById('resultado-basico');
 
-// Função para reutilizar seu operar adaptado para os valores temporários
-function operarInterno() {
-    const resultadoEl = document.getElementById('resultado-basico');
-
-    if (tempA === null || tempB === null || tempOperacao === null) {
-        resultadoEl.textContent = 'Erro na operação.';
-        return;
-    }
-
-    const a = tempA;
-    const b = tempB;
-    const operacao = tempOperacao;
-
-    let resultado;
-    let texto = '';
-
-    switch (operacao) {
-        case 'soma':
-            resultado = a + b;
-            texto = `Resultado da soma: ${resultado}`;
-            break;
-        case 'sub':
-            resultado = a - b;
-            texto = `Resultado da subtração: ${resultado}`;
-            break;
-        case 'mult':
-            resultado = a * b;
-            texto = `Resultado da multiplicação: ${resultado}`;
-            break;
-        case 'div':
-            if (b === 0) {
-                texto = 'Não é possível dividir por zero!';
-            } else {
-                resultado = a / b;
-                texto = `Resultado da divisão: ${resultado}`;
-            }
-            break;
-    }
-
-    resultadoEl.textContent = texto;
-    // Reset temporário
-    tempA = null;
-    tempB = null;
-    tempOperacao = null;
-}
-
-// Funções para controlar o display da calculadora
-
+// --- Operações básicas ---
 function appendNum(num) {
-    const display = document.getElementById('display');
     if (display.value === "0") display.value = "";
     display.value += num;
 }
 
 function appendOp(op) {
-    const display = document.getElementById('display');
-    const lastChar = display.value.slice(-1);
-
-    // Evita dois operadores seguidos
-    if (['+', '-', '*', '/'].includes(lastChar)) {
-        display.value = display.value.slice(0, -1) + op;
-    } else if (display.value.length > 0) {
-        display.value += op;
-    }
+    display.value += op;
 }
 
 function clearDisplay() {
-    document.getElementById('display').value = '';
-    document.getElementById('resultado-basico').textContent = '';
+    display.value = '';
+    resultadoBasico.textContent = '';
 }
-
-// Função para calcular: interpreta display, separa operandos e operação e chama operarInterno
 
 function calculate() {
-    const display = document.getElementById('display');
     const expr = display.value;
 
-    // Regex para separar números e operação (+ - * /)
-    const match = expr.match(/^(-?\d*\.?\d+)([\+\-\*\/])(-?\d*\.?\d+)$/);
-
-    if (!match) {
-        document.getElementById('resultado-basico').textContent = 'Expressão inválida. Use formato: número operador número';
-        return;
-    }
-
-    let a = parseFloat(match[1]);
-    let op = match[2];
-    let b = parseFloat(match[3]);
-
-    if (isNaN(a) || isNaN(b)) {
-        document.getElementById('resultado-basico').textContent = 'Por favor, insira números válidos.';
-        return;
-    }
-
-    // Ajusta operação para usar nomes da sua função operar
-    switch(op) {
-        case '+': op = 'soma'; break;
-        case '-': op = 'sub'; break;
-        case '*': op = 'mult'; break;
-        case '/': op = 'div'; break;
-        default:
-            document.getElementById('resultado-basico').textContent = 'Operação inválida.';
+    try {
+        if (!/^[0-9+\-*/().\s]+$/.test(expr)) {
+            resultadoBasico.textContent = 'Expressão inválida.';
             return;
+        }
+
+        const valor = Function('"use strict"; return (' + expr + ')')();
+        resultadoBasico.textContent = `${expr} = ${valor}`;
+        display.value = valor;
+    } catch {
+        resultadoBasico.textContent = 'Erro ao calcular.';
     }
-
-    tempA = a;
-    tempB = b;
-    tempOperacao = op;
-
-    operarInterno();
 }
 
-// --- SEGUEM AS SUAS FUNÇÕES ORIGINAIS ---
+// --- Funções matemáticas extras ---
+function square() {
+    const value = parseFloat(display.value);
+    if (isNaN(value)) return;
+    const result = value ** 2;
+    display.value = result;
+    resultadoBasico.textContent = `${value}² = ${result}`;
+}
 
-// Bhaskara
+function squareRoot() {
+    const value = parseFloat(display.value);
+    if (isNaN(value)) return;
+    const result = Math.sqrt(value);
+    display.value = result;
+    resultadoBasico.textContent = `√${value} = ${result}`;
+}
+
+function percent() {
+    const value = parseFloat(display.value);
+    if (isNaN(value)) return;
+    const result = value / 100;
+    display.value = result;
+    resultadoBasico.textContent = `${value}% = ${result}`;
+}
+
+function toggleSign() {
+    const display = document.getElementById('display');
+    let expr = display.value;
+
+    // Captura o último número, pode ter sinal negativo e decimal
+    const regex = /(-?\d*\.?\d+)$/;
+    const match = expr.match(regex);
+
+    if (match) {
+        let lastNum = match[0];
+        let start = expr.slice(0, match.index);
+
+        // Inverte o sinal do último número
+        if (lastNum.startsWith('-')) {
+            lastNum = lastNum.slice(1); // tira o '-'
+        } else {
+            lastNum = '-' + lastNum; // adiciona o '-'
+        }
+
+        display.value = start + lastNum;
+    }
+}
+
+function pi() {
+    const value = parseFloat(display.value);
+    if (isNaN(value)) return;
+    const result = value * Math.PI;
+    display.value = result.toFixed(8);
+    resultadoBasico.textContent = `${value} × π = ${result.toFixed(8)}`;
+}
+
+function backspace() {
+    const display = document.getElementById('display');
+    display.value = display.value.slice(0, -1);
+}
+
+// --- Bhaskara ---
 function calcularBhaskara() {
     const A = parseFloat(document.getElementById('a2').value);
     const B = parseFloat(document.getElementById('b2').value);
@@ -129,7 +107,7 @@ function calcularBhaskara() {
         return;
     }
 
-    const delta = B * B - 4 * A * C;
+    const delta = B ** 2 - 4 * A * C;
 
     if (delta < 0) {
         resultadoEl.textContent = 'Delta negativo. Não existem raízes reais.';
@@ -140,13 +118,13 @@ function calcularBhaskara() {
     }
 }
 
-// Conversor Romano: Número para Romano
+// --- Conversor Romano: Número para Romano ---
 function conversorNum() {
     const num = parseInt(document.getElementById('numeros').value);
     const resultado = document.getElementById('resultado-num');
 
-    if (isNaN(num) || num < 1 || num > 3999) {
-        resultado.textContent = 'Digite um número válido (1 a 3999)';
+    if (isNaN(num) || num < 1 || num > 3999 || num % 1 !== 0) {
+        resultado.textContent = 'Digite um número inteiro válido (1 a 3999)';
         return;
     }
 
@@ -166,19 +144,20 @@ function conversorNum() {
     resultado.textContent = `Número ${num} → ${romano}`;
 }
 
-// Conversor Romano: Romano para Número
+// --- Conversor Romano: Romano para Número ---
 function conversorStr() {
     const str = document.getElementById('letras').value.toUpperCase();
     const resultado = document.getElementById('resultado-str');
 
+    const regexRomanoValido = /^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
+    if (!regexRomanoValido.test(str)) {
+        resultado.textContent = 'Número romano inválido.';
+        return;
+    }
+
     const mapa = {
-        'M': 1000,
-        'D': 500,
-        'C': 100,
-        'L': 50,
-        'X': 10,
-        'V': 5,
-        'I': 1
+        'M': 1000, 'D': 500, 'C': 100,
+        'L': 50, 'X': 10, 'V': 5, 'I': 1
     };
 
     let total = 0;
@@ -186,18 +165,8 @@ function conversorStr() {
 
     for (let i = str.length - 1; i >= 0; i--) {
         const atual = mapa[str[i]];
-
-        if (!atual) {
-            resultado.textContent = 'Letra inválida. Digite um número romano válido.';
-            return;
-        }
-
-        if (atual < anterior) {
-            total -= atual;
-        } else {
-            total += atual;
-        }
-
+        if (atual < anterior) total -= atual;
+        else total += atual;
         anterior = atual;
     }
 
