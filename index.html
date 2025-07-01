@@ -4,75 +4,107 @@
     <meta charset="UTF-8" />
     <title>Calculando Fundamentos</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 </head>
 <body>
-<div class="container">
-    <h1>Cálculos Fundamentais</h1>
-    <hr>
+    <div class="container">
 
-    <!-- Calculadora -->
-    <h2>Calculadora</h2>
-    <div class="calculadora">
-      <input type="text" id="display" placeholder="0" readonly />
-      <div class="calc-buttons">
-        <button onclick="appendNum('7')">7</button>
-        <button onclick="appendNum('8')">8</button>
-        <button onclick="appendNum('9')">9</button>
-        <button onclick="appendOp('+')"><i class="fa-solid fa-plus"></i></button>
+        <h1>Cálculos Fundamentais</h1>
+        <hr />
 
-        <button onclick="appendNum('4')">4</button>
-        <button onclick="appendNum('5')">5</button>
-        <button onclick="appendNum('6')">6</button>
-        <button onclick="appendOp('-')"><i class="fa-solid fa-minus"></i></button>
+        <!-- Calculadora -->
+        <h2>Calculadora</h2>
+        <div class="calculadora">
+            <input type="text" id="display" placeholder="0" readonly />
 
-        <button onclick="appendNum('1')">1</button>
-        <button onclick="appendNum('2')">2</button>
-        <button onclick="appendNum('3')">3</button>
-        <button onclick="appendOp('*')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="calc-buttons">
+                <button onclick="backspace()"><i class="fa-solid fa-delete-left"></i></button>
+                <button onclick="square()">x²</button>
+                <button onclick="squareRoot()">√</button>
+                <button onclick="percent()">%</button>
+                <button onclick="pi()">π</button>
 
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="appendNum('0')">0</button>
-        <button onclick="calculate()">=</button>
-        <button onclick="appendOp('/')"><i class="fa-solid fa-divide"></i></button>
-      </div>
-      <p id="resultado-basico" class="resultado"></p>
+                <button onclick="appendNum('7')">7</button>
+                <button onclick="appendNum('8')">8</button>
+                <button onclick="appendNum('9')">9</button>
+                <button onclick="appendOp('+')">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <button onclick="appendNum('4')">4</button>
+                <button onclick="appendNum('5')">5</button>
+                <button onclick="appendNum('6')">6</button>
+                <button onclick="appendOp('-')">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+
+                <button onclick="appendNum('1')">1</button>
+                <button onclick="appendNum('2')">2</button>
+                <button onclick="appendNum('3')">3</button>
+                <button onclick="appendOp('*')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="calculate()">=</button>
+                <button onclick="appendOp('/')"><i class="fa-solid fa-divide"></i></button>
+
+                <button onclick="toggleSign()">±</button>
+                <button onclick="appendOp('(')">(</button>
+                <button onclick="appendOp(')')">)</button>
+                <button onclick="appendNum('.')">.</button>
+            </div>
+
+            <p id="resultado-basico" class="resultado">Resultado</p>
+        </div>
+
+        <hr />
+
+        <!-- Bhaskara -->
+        <h2>Bhaskara</h2>
+        <img
+          src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRt2MhVB6pk4iyink_bMu7y9A5ieoqKQEJCpsOH6sNRcW3oWfh0PdyTDiZEfPnmed02COZDMII-S_aMJ9L-sOajjuUtJwCyodmAXd3iQeKrCA"
+          alt="formula-Bhaskara"
+        />
+
+        <p>Letra A:</p>
+        <input id="a2" type="number" placeholder="A" />
+
+        <p>Letra B:</p>
+        <input id="b2" type="number" placeholder="B" />
+
+        <p>Letra C:</p>
+        <input id="c2" type="number" placeholder="C" />
+
+        <br />
+        <button onclick="calcularBhaskara()">Calcular</button>
+        <p id="resultado-bhaskara" class="resultado">Resultado do nosso amiguinho Bhaskarinha</p>
+
+        <hr />
+
+        <!-- Conversor Romano -->
+        <h2>Conversão Romana</h2>
+
+        <h3>Conversor de Número:</h3>
+        <br />
+        <input id="numeros" type="number" placeholder="Valor do Número" />
+        <br />
+        <button onclick="conversorNum()">Converter Número</button>
+        <p id="resultado-num" class="resultado">Resultado Conversão</p>
+        <br />
+
+        <h3>Conversor de Letra:</h3>
+        <br />
+        <input id="letras" type="text" placeholder="Valor da Letra" />
+        <br />
+        <button onclick="conversorStr()">Converter Letra</button>
+        <p id="resultado-str" class="resultado">Resultado Conversão</p>
+
     </div>
-</div>
 
-<div class="container">
-
-    <!-- Bhaskara -->
-    <h2>Bhaskara</h2>
-    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRt2MhVB6pk4iyink_bMu7y9A5ieoqKQEJCpsOH6sNRcW3oWfh0PdyTDiZEfPnmed02COZDMII-S_aMJ9L-sOajjuUtJwCyodmAXd3iQeKrCA" alt="formula-Bhaskara" />
-
-    <p>Letra A:</p>
-    <input id="a2" type="number" placeholder="A" />
-    <p>Letra B:</p>
-    <input id="b2" type="number" placeholder="B" />
-    <p>Letra C:</p>
-    <input id="c2" type="number" placeholder="C" />
-    <br/>
-    <button onclick="calcularBhaskara()">Calcular</button>
-    <p id="resultado-bhaskara" class="resultado"></p>
-
-</div>
-
-<div class="container">
-    <!-- Conversor Romano -->
-    <h2>Conversão Romana</h2>
-
-    <h3>Conversor de Número</h3><br/>
-    <input id="numeros" type="number" placeholder="Valor do Número" /><br/>
-    <button onclick="conversorNum()">Converter Número</button>
-    <p id="resultado-num" class="resultado"></p><br>
-
-    <h3>Conversor de Letra</h3><br/>
-    <input id="letras" type="text" placeholder="Valor da Letra" /><br/>
-    <button onclick="conversorStr()">Converter Letra</button>
-    <p id="resultado-str" class="resultado"></p>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
