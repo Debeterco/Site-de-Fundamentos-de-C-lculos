@@ -20,46 +20,49 @@
         <div class="calculadora">
             <input type="text" id="display" placeholder="0" readonly />
 
-            <div class="calc-buttons">
-                <button onclick="backspace()"><i class="fa-solid fa-delete-left"></i></button>
-                <button onclick="square()">x²</button>
-                <button onclick="squareRoot()">√</button>
-                <button onclick="percent()">%</button>
-                <button onclick="pi()">π</button>
+        <div class="calc-buttons">
+        <!-- Primeira linha -->
+        <button onclick="backspace()"><i class="fa-solid fa-delete-left"></i></button>
+        <button onclick="square()">x²</button>
+        <button onclick="squareRoot()">√</button>
+        <button onclick="percent()">%</button>
+        <button onclick="pi()">π</button>
 
-                <button onclick="appendNum('7')">7</button>
-                <button onclick="appendNum('8')">8</button>
-                <button onclick="appendNum('9')">9</button>
-                <button onclick="appendOp('+')">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+        <!-- Linha 2 -->
+        <button onclick="appendNum('7')">7</button>
+        <button onclick="appendNum('8')">8</button>
+        <button onclick="appendNum('9')">9</button>
+        <button onclick="appendOp('/')"><i class="fa-solid fa-divide"></i></button>
 
-                <button onclick="appendNum('4')">4</button>
-                <button onclick="appendNum('5')">5</button>
-                <button onclick="appendNum('6')">6</button>
-                <button onclick="appendOp('-')">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
+        <!-- Linha 3 -->
+        <button onclick="appendNum('4')">4</button>
+        <button onclick="appendNum('5')">5</button>
+        <button onclick="appendNum('6')">6</button>
+        <button onclick="appendOp('*')"><i class="fa-solid fa-xmark"></i></button>
 
-                <button onclick="appendNum('1')">1</button>
-                <button onclick="appendNum('2')">2</button>
-                <button onclick="appendNum('3')">3</button>
-                <button onclick="appendOp('*')">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+        <!-- Linha 4 -->
+        <button onclick="appendNum('1')">1</button>
+        <button onclick="appendNum('2')">2</button>
+        <button onclick="appendNum('3')">3</button>
+        <button onclick="appendOp('-')"><i class="fa-solid fa-minus"></i></button>
 
-                <button onclick="clearDisplay()">C</button>
-                <button onclick="calculate()">=</button>
-                <button onclick="appendOp('/')"><i class="fa-solid fa-divide"></i></button>
+        <!-- Linha 5: 0 ocupa duas colunas -->
+        <button class="span-2" onclick="appendNum('0')">0</button>
+        <button onclick="appendNum('.')">.</button>
+        <button onclick="appendOp('+')"><i class="fa-solid fa-plus"></i></button>
 
-                <button onclick="toggleSign()">±</button>
-                <button onclick="appendOp('(')">(</button>
-                <button onclick="appendOp(')')">)</button>
-                <button onclick="appendNum('.')">.</button>
-            </div>
-
-            <p id="resultado-basico" class="resultado">Resultado</p>
+        <!-- Linha 6 -->
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="toggleSign()">±</button>
+        <button onclick="appendOp('(')">(</button>
+        <button onclick="appendOp(')')">)</button>
         </div>
+
+        <!-- Botão igual separado -->
+        <button onclick="calculate()" style="margin-top: 12px;">=</button>
+
+        <p id="resultado-basico" class="resultado">Resultado</p>
+
 
         <hr />
 
@@ -104,7 +107,6 @@
         <p id="resultado-str" class="resultado">Resultado Conversão</p>
 
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
