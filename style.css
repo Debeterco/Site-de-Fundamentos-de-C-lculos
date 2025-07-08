@@ -187,3 +187,7 @@ img {
 button i {
     margin-right: 8px;
 }
+
+.span-2 {
+    grid-column: span 2;
+}
